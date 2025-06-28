@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export async function GET(request: NextRequest){
     try {
         const videos = await prisma.video.findMany({   
-            orderBy: {createdAt: "desc"}
+            orderBy: {createdAt: "desc"}             // NAYA PHELE PURANA BAAAD ME
         });
         return NextResponse.json(videos);
     } catch (error) {
