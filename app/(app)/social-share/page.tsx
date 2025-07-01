@@ -24,7 +24,7 @@ export default function SocialShare() {
   const [isUploading,setIsUploading] = useState(false)
   const imageRef = useRef<HTMLImageElement>(null);
 
-  useEffect(() => {   // jaha bhi selectformat aur uploadimg me change hoaga wha me isTranform ko update krunaga
+  useEffect(() => {   // jaha bhi selectformat aur uploadimg me change hoaga wha pe isTranform ko update krunaga
     if(uploadedImage){
       setIsTransforming(true);
     }
@@ -65,12 +65,13 @@ const handleDownload = () =>{
     fetch(imageRef.current.src) // img ka actual url nikal rhe..browser se img data la rhe
     .then((response) => response.blob())  // it will download the thing (img to downloadable binary data)
     .then((blob) => {  // binary large object
-            const url = window.URL.createObjectURL(blob)
-            const link = document.createElement("a");   // a tag to down file with new tab 
+            const url = window.URL.createObjectURL(blob)  //temperory url
+            
+            const link = document.createElement("a");   // a tag to down file without new tab 
 
             link.href = url;  // set kr diya url
 
-            link.download = `${selectedFormat // IMAG KE NAME KE HISAB SE FILENAME DOWNLOD
+            link.download = `${selectedFormat // IMAG KE NAME KE HISAB SE FILENAME DOWNLOD selectedformat usestate
           .replace(/\s+/g, "_")
           .toLowerCase()}.png`;
             document.body.appendChild(link);  //BROWSER ME A TAG ADDED
