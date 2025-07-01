@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast"; // react-hot-toast import for notifications
+import {toast} from "react-hot-toast"; // react-hot-toast import for notifications
 
 function VideoUpload() {
   const [file, setFile] = useState<File | null>(null); // file state
@@ -36,7 +36,7 @@ function VideoUpload() {
     formData.append("description", description); // appending the description
     formData.append("originalSize", file.size.toString()); // appending file size as string
 
-    const toastId = toast.loading("Uploading video..."); // show loading toast
+    const toastId = toast.loading("Uploading video..."); // show loading toast fir update hoga
 
     try {
       const response = await axios.post("/api/video-upload", formData);
