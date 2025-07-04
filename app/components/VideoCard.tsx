@@ -4,8 +4,7 @@ import { Download, Clock, FileDown, FileUp } from "lucide-react";
 import dayjs from 'dayjs';
 import realtiveTime from "dayjs/plugin/relativeTime"
 import {filesize} from "filesize"
-import { Video } from '@prisma/client';
-
+import { Video } from '@/types';
 dayjs.extend(realtiveTime)
 
 interface VideoCardProps {
@@ -44,7 +43,7 @@ const  VideoCard: React.FC<VideoCardProps> = ({video, onDownload}) => {
             src: publicId,
             width: 400,
             height: 225,
-            rawTransformations: ["e_preview:duration_15:max_seg_9:min_seg_dur_1"]
+            rawTransformations: ["e_preview:duration_15:max_seg_9:min_seg_dur_1"]  // clodudinary pe preview ka timing kitna rhega
 
         })
     }, [])

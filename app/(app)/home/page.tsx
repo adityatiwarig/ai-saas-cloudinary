@@ -2,7 +2,7 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import axios from 'axios'
 import VideoCard from '@/app/components/VideoCard'
-import { Video } from '@prisma/client'
+import { Video } from '@/types'
 function Home() {
     const [videos, setVideos] = useState<Video[]>([])
     const [loading, setLoading] = useState(true)
