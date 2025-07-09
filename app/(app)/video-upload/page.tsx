@@ -2,16 +2,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import {toast} from "react-hot-toast"; // react-hot-toast import for notifications
+import { toast } from "react-hot-toast";
 
 function VideoUpload() {
-  const [file, setFile] = useState<File | null>(null); // file state
-  const [title, setTitle] = useState(""); // video title
-  const [description, setDescription] = useState(""); // video description
-  const [isUploading, setIsUploading] = useState(false); // upload loader
+  const [file, setFile] = useState<File | null>(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   const router = useRouter();
-  // max file size of 70 mb
   const MAX_FILE_SIZE = 70 * 1024 * 1024;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,85 +22,96 @@ function VideoUpload() {
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      // add notification
       toast.error("File size too large. Max allowed is 70MB.");
       return;
     }
 
     setIsUploading(true);
-
     const formData = new FormData();
-    formData.append("file", file); // appending the video file
-    formData.append("title", title); // appending the title
-    formData.append("description", description); // appending the description
-    formData.append("originalSize", file.size.toString()); // appending file size as string
+    formData.append("file", file);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("originalSize", file.size.toString());
 
-    const toastId = toast.loading("Uploading video..."); // show loading toast fir update hoga
+    const toastId = toast.loading("Uploading video...");
 
     try {
       const response = await axios.post("/api/video-upload", formData);
-      // check for 200 response
       if (response.status === 200) {
         toast.success("Video uploaded successfully!", { id: toastId });
-        router.push("/"); // redirect on success
+        router.push("/");
       } else {
         toast.error("Upload failed. Please try again.", { id: toastId });
       }
     } catch (error) {
-      console.log(error);
-      // notification for failure
+      console.error(error);
       toast.error("Something went wrong during upload.", { id: toastId });
     } finally {
-      setIsUploading(false); // reset loader state
+      setIsUploading(false);
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Upload Video</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="label">
-            <span className="label-text">Title</span>
-          </label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="input input-bordered w-full"
-            required
-          />
-        </div>
-        <div>
-          <label className="label">
-            <span className="label-text">Description</span>
-          </label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="textarea textarea-bordered w-full"
-          />
-        </div>
-        <div>
-          <label className="label">
-            <span className="label-text">Video File</span>
-          </label>
-          <input
-            type="file"
-            accept="video/*"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-            className="file-input file-input-bordered w-full"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={isUploading}
-        >
-          {isUploading ? "Uploading..." : "Upload Video"}
-        </button>
-      </form>
+    <div className="min-h-screen bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center px-4">
+      <div className="w-full max-w-2xl bg-white dark:bg-slate-900 shadow-xl rounded-2xl p-8 space-y-6 border border-slate-200 dark:border-slate-700">
+        <h2 className="text-3xl font-bold text-slate-800 dark:text-white text-center">
+          📤 Upload Your Video
+        </h2>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block mb-1 font-medium text-slate-700 dark:text-slate-300">
+              Title
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter video title"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-slate-700 dark:text-slate-300">
+              Description
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={4}
+              className="w-full px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Add a short description (optional)"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-slate-700 dark:text-slate-300">
+              Video File
+            </label>
+            <input
+              type="file"
+              accept="video/*"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+              className="w-full file:px-4 file:py-2 file:border-0 file:rounded-lg file:bg-blue-600 file:text-white file:cursor-pointer bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className={`w-full py-3 text-white rounded-lg font-semibold transition duration-200 ${
+              isUploading
+                ? "bg-blue-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            }`}
+            disabled={isUploading}
+          >
+            {isUploading ? "Uploading..." : "🚀 Upload Video"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
