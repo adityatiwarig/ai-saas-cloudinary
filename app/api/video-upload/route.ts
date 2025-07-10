@@ -70,7 +70,8 @@ export async function POST(request: NextRequest) {
                 uploadStream.end(buffer)
             }
         )
-        const video = await prisma.video.create({
+        const video = await prisma.video.create({  // response ki jagah prisma jayega
+                                                 // kuki database me store krna hai.. img ko sirf cloudinary pe upload krna hai
             data: {
                 title,
                 description,
@@ -80,13 +81,13 @@ export async function POST(request: NextRequest) {
                 duration: result.duration || 0,
             }
         })
-        return NextResponse.json(video)
+        return NextResponse.json(video)  
 
     } catch (error) {
         console.log("Upload video failed", error)
         return NextResponse.json({error: "Upload video failed"}, {status: 500})
     } finally{
-        await prisma.$disconnect()
+        await prisma.$disconnect()  // prisma ko humesa dis()
     }
 
 }
