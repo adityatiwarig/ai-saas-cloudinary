@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import { cn } from "@/lib/utils"; // or replace with your own cn utility
 
 interface BorderBeamProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
@@ -33,11 +32,7 @@ export function BorderBeam({
   }, [color, duration, delay, size]);
 
   return (
-    <div
-      ref={ref}
-      className={cn("relative z-0", className)}
-      {...props}
-    >
+    <div ref={ref} className={`relative z-0 ${className ?? ""}`} {...props}>
       <div className="absolute inset-0 z-[-1] rounded-xl border border-neutral-800 before:absolute before:inset-0 before:animate-border-beam before:bg-[radial-gradient(var(--beam-size)_at_var(--mouse-x)_var(--mouse-y),var(--beam-color)_0%,transparent_80%)]" />
       {children}
     </div>

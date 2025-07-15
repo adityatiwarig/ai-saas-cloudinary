@@ -1,18 +1,13 @@
+/* Import Tailwind & DaisyUI */
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark, cupcake;
 }
 
+/* Root theme variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,8 +17,40 @@
   }
 }
 
+/* Custom Theme Tokens */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Base Body Styling */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 🔥 Border Beam Animation */
+@layer utilities {
+  @keyframes border-beam {
+    0% {
+      --mouse-x: 0%;
+      --mouse-y: 0%;
+    }
+    50% {
+      --mouse-x: 100%;
+      --mouse-y: 100%;
+    }
+    100% {
+      --mouse-x: 0%;
+      --mouse-y: 0%;
+    }
+  }
+
+  .animate-border-beam {
+    animation: border-beam var(--beam-duration, 10s) ease-in-out infinite;
+    animation-delay: var(--beam-delay, 0s);
+  }
 }

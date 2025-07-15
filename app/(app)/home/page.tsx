@@ -47,7 +47,7 @@ function Home() {
       <div className="relative z-0 rounded-2xl p-6 sm:p-10 overflow-hidden bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] shadow-xl border border-white/10">
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-pulse drop-shadow-lg text-center mb-10">
-          ✨ Your Collections ✨
+          ✨ Collections.. ✨
         </h1>
 
         {/* 📦 Video Cards */}
