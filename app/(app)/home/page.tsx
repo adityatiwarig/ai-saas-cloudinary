@@ -42,11 +42,27 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#0f0f17] text-white px-4 py-6">
-   
-      <div className="relative z-0 rounded-2xl p-6 sm:p-10 overflow-hidden bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] shadow-xl border border-white/10">
+    <div className="min-h-screen w-full relative bg-black text-white px-4 py-6 overflow-hidden">
 
-        <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-pulse drop-shadow-lg text-center mb-10">
+      {/* ⚫️ Black Grid + White Dots Background */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: "#000000",
+          backgroundImage: `
+            linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px),
+            radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)
+          `,
+          backgroundSize: "20px 20px, 20px 20px, 20px 20px",
+          backgroundPosition: "0 0, 0 0, 0 0",
+        }}
+      />
+
+      {/* 🌟 Main Content without background */}
+      <div className="relative z-10 rounded-2xl p-6 sm:p-10 shadow-xl border border-white/10">
+
+        <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500 animate-pulse drop-shadow-lg text-center mb-10">
           ✨ Collections.. ✨
         </h1>
 
